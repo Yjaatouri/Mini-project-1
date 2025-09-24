@@ -4,13 +4,16 @@
 
 int main()
 {
-    int n=0,i,j,y,x=0,nq,t;
+    //declare les variables
+    int i,j,y,x=0,n=0,nq,t=-1;
     char titre2 [25];
     char titres[100][50];
     char auteurs[100][50];
     float prix[100];
     int quantite[100];
+    //loop pour le demand d'action
     do{
+    //l'affichage des choix
     printf("=============================================\n");
     printf("*1 Pour ajouter un livre*\n");
     printf("*2 Pour afficher tous les livre disponible*\n");
@@ -20,14 +23,15 @@ int main()
     printf("*6 Afficher le nombre total de livres en stock*\n");
     printf("*0 pour quiter le program!!\n");
     printf("==============================================\n");
-
-
+    //demand d'action
+    printf("\033[34m");
     printf("Entre votre action:");
+    printf("\033[0m");
     scanf("%d",&x);
-
+    //switch poue chaque case
     switch(x){
         case 1 :{
-
+            //ajouter un livre
             printf("entre le nom de livre :\n");
             scanf("%s",&titres[n]);
 
@@ -44,16 +48,20 @@ int main()
             break;
             }
         case 2 :{
+            //affichage des information pour un livre
+            printf("\033[32m");
             printf ("+--------+---------+------+--------+\n");
+            printf("\033[0m");
             printf ("| Titre  | Auteur  | Prix |Quantite| \n");
             for(i=0;i<n;i++){
 
-            printf("   %s       %s      %.2f    %d\n",titres,auteurs,prix,quantite);
+            printf("   %s       %s      %.2f    %d\n",titres[i],auteurs[i],prix[i],quantite[i]);
             }
             printf ("+--------+---------+------+--------+\n");
             break;
         }
         case 3 :{
+            //recherch pour un livre
             printf("entre le titre de livre:");
             scanf("%s",&titre2);
             for(i=0;i<n;i++){
@@ -70,6 +78,7 @@ int main()
             break;
         }
         case 4 :{
+            //modification de quantite pour un livre
             printf("quel livre souhaitez vous modife ?:");
             scanf("%s",&titre2);
             printf("entre la nouvel quantite :");
@@ -77,8 +86,6 @@ int main()
 
             for(i=0;i<n;i++){
             if(strcmp(titre2,titres[i])==0){
-                        t = quantite[i];
-                        nq = t;
                         quantite [i] = nq;
                         printf("quantite = %d\n",quantite[i]);
 
@@ -92,10 +99,35 @@ int main()
 
 
         case 5 :{
+            //supprimer un livre
+            printf("quel livre souhaitez-vous supprimer?: ");
+            scanf("%s",&titre2);
+            for(i=0;i<n;i++){
+                if(strcmp(titre2,titres[i])==0){
+                    t = i;
+                    for(t;t<n;t++){
+                        strcpy(titres[t],titres[t+1]);
+                    }
+                    for(t;t<n;t++){
+                        strcpy(auteurs[t],auteurs[t+1]);
+                    }
+                    for(t;t<n;t++){
+                        prix[t]=prix[t+1];
+                    }
+                    for(t;t<n;t++){
+                        quantite[t]=quantite[t+1];
+                    }
+                    n--;
+                    break;
+
+
+                }
+            }
             break;
 
         }
         case 6 : {
+            //afficher quantite d'un livre
             printf("\033[0;33m");
             printf("le quantite de livres c'est : %d livres\n",n);
             printf("\033[0m");
@@ -103,6 +135,9 @@ int main()
 
         }
         default:{
+            printf("\033[0;31m");
+            printf("entre un valide numbre\n");
+            printf("\033[0m");
 
         }
 
